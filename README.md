@@ -253,31 +253,28 @@ pytest
 
 ```
 fileops-mcp/
-├── src/
-│   ├── __init__.py           # Package initialization
-│   ├── main.py               # Entry point and CLI
-│   ├── server.py             # MCP server definition
-│   ├── constants.py          # Configuration constants
-│   ├── operations/
-│   │   ├── __init__.py
-│   │   ├── file_ops.py       # File operations
-│   │   ├── dir_ops.py        # Directory operations
-│   │   ├── search_ops.py     # Search operations
-│   │   ├── version_ops.py    # Git operations
-│   │   ├── help_ops.py       # Help operations
-│   │   └── help_texts.py     # Help text definitions
-│   ├── utils/
-│   │   ├── __init__.py
-│   │   ├── security.py       # Security utilities
-│   │   ├── path_utils.py     # Path handling utilities
-│   │   ├── git_utils.py      # Git integration utilities
-│   │   └── formatters.py     # Output formatting utilities
-│   └── resources/
-│       ├── __init__.py
-│       └── resource_handlers.py  # Resource endpoint handlers
-├── tests/                        # Test directory
-├── docs/                         # Documentation
-└── examples/                     # Example scripts and usage
+└── src/
+    ├── __init__.py           # Package initialization
+    ├── main.py               # Entry point and CLI
+    ├── server.py             # MCP server definition
+    ├── constants.py          # Configuration constants
+    ├── operations/
+    │   ├── __init__.py
+    │   ├── file_ops.py       # File operations
+    │   ├── dir_ops.py        # Directory operations
+    │   ├── search_ops.py     # Search operations
+    │   ├── version_ops.py    # Git operations
+    │   ├── help_ops.py       # Help operations
+    │   └── help_texts.py     # Help text definitions
+    ├── utils/
+    │   ├── __init__.py
+    │   ├── security.py       # Security utilities
+    │   ├── path_utils.py     # Path handling utilities
+    │   ├── git_utils.py      # Git integration utilities
+    │   └── formatters.py     # Output formatting utilities
+    └── resources/
+        ├── __init__.py
+        └── resource_handlers.py  # Resource endpoint handlers
 ```
 
 ## Troubleshooting
@@ -288,59 +285,6 @@ fileops-mcp/
 - **File size limits**: Files larger than 10MB cannot be read
 - **Search timeouts**: Use more specific patterns for large directories
 - **Git errors**: Ensure gitpython is installed and the repository is properly initialized
-
-## Implementation Notes
-
-### Recent Feature Additions
-
-#### insert_in_file Tool (May 2025)
-
-The `insert_in_file` tool provides precise control for inserting content at specific positions within a file. This feature allows Claude to:
-- Insert code exactly where it belongs (e.g., adding methods to a class)
-- Add content at specific line positions with `after_line` or `before_line`
-- Insert content after pattern matches with `after_pattern`
-- Maintain proper code structure when adding functionality
-- Preserve formatting and context in existing files
-
-Implementation includes:
-- Secure validation of all inputs and file operations
-- Three flexible positioning options (after line, before line, or after pattern)
-- Thorough error handling and guidance
-- Comprehensive test suite
-- Atomic file operations with rollback capability
-- Git integration for version control
-
-```python
-# Example usage
-result = await fileops(
-    operation="insert_in_file",
-    path="src/myclass.py",
-    content="    def new_method(self):\n        return 'Hello World'\n",
-    after_pattern="def __init__"  # Insert after constructor
-)
-```
-
-#### read_multiple_files Tool (May 2025)
-
-The `read_multiple_files` tool was added to improve efficiency when working with multiple related files. This feature allows Claude to:
-- Read multiple files in a single operation
-- Analyze related configuration files together
-- Process imports and dependencies across files
-- Get comprehensive context from multiple sources
-
-Implementation includes:
-- Core function in file_ops.py with proper security validation
-- Comprehensive test coverage
-- Full documentation in help texts and manual
-- User-friendly error handling for binary and non-existent files
-
-```python
-# Example usage
-result = await fileops(
-    operation="read_multiple_files", 
-    paths=["package.json", "tsconfig.json", "README.md"]
-)
-```
 
 
 ## License
